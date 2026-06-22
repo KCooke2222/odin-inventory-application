@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Edit Item</title>
+  </head>
+  <body>
+    <h1>Edit Item</h1>
+    <form action="/items/<%= item.id %>/edit" method="POST">
+  <input 
+    name="name" 
+    type="text" 
+    value="<%= item.name %>"
+  >
+
+  <input 
+    name="quantity" 
+    type="number" 
+    value="<%= item.quantity %>"
+  >
+
+  <input 
+    name="image_url" 
+    type="text" 
+    value="<%= item.image_url %>"
+  >
+
+  <select name="category_id">
+    <% categories.forEach((category) => { %>
+      <option 
+        value="<%= category.id %>"
+        <%= category.id === item.category_id ? "selected" : "" %>
+      >
+        <%= category.name %>
+      </option>
+    <% }) %>
+  </select>
+
+  <button type="submit">Submit</button>
+</form>
+  </body>
+</html>

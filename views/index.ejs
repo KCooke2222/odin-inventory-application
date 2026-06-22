@@ -1,14 +1,34 @@
 <body>
-  <h1>Usernames</h1>
+  <h1>Fruits</h1>
+  <% if (query.error) { %>
+    <p><%= query.error %></p>
+  <% } %>
 
-  <ul>
-    <% usernames.forEach((user) => { %>
-      <li><%= user.username %></li>
-    <% }); %>
-  </ul>
-
-  <a href="/new">Create User</a>
-  <form action="/delete" method="POST">
-    <button type="submit">Delete all</button>
+  <% categories.forEach((category) => { %>
+  <h2><%= category.name %></h2>
+  <form action="/categories/<%= category.id %>/delete" method="POST">
+    <button type="submit">Delete</button>
   </form>
+  <a href="/categories/<%= category.id %>/edit">Edit</a>
+
+  <% const categoryItems = items.filter((item) => item.category_id === category.id); %>
+
+  <% categoryItems.forEach((item) => { %>
+    <div>
+      <h3><%= item.name %></h3>
+      <p>Quantity: <%= item.quantity %></p>
+      <img src="<%= item.image_url %>" alt="<%= item.name %>">
+
+      <a href="/items/<%= item.id %>/edit">Edit</a>
+
+      <form action="/items/<%= item.id %>/delete" method="POST">
+        <button type="submit">Delete</button>
+      </form>
+    </div>
+  <% }) %>
+<% }) %>
+
+  <a href="/items/new">Create Item</a>
+  <a href="/categories/new">Create Category</a>
+
 </body>
