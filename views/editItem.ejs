@@ -1,42 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Edit Item</title>
-  </head>
-  <body>
-    <h1>Edit Item</h1>
-    <form action="/items/<%= item.id %>/edit" method="POST">
-  <input 
-    name="name" 
-    type="text" 
-    value="<%= item.name %>"
-  >
-
-  <input 
-    name="quantity" 
-    type="number" 
-    value="<%= item.quantity %>"
-  >
-
-  <input 
-    name="image_url" 
-    type="text" 
-    value="<%= item.image_url %>"
-  >
-
-  <select name="category_id">
-    <% categories.forEach((category) => { %>
-      <option 
-        value="<%= category.id %>"
-        <%= category.id === item.category_id ? "selected" : "" %>
-      >
-        <%= category.name %>
-      </option>
-    <% }) %>
-  </select>
-
-  <button type="submit">Submit</button>
-</form>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <title>Edit Item</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="form-page">
+  <h1>Edit Item</h1>
+  <form action="/items/<%= item.id %>/edit" method="POST">
+    <div class="field">
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" value="<%= item.name %>">
+    </div>
+    <div class="field">
+      <label for="quantity">Quantity</label>
+      <input id="quantity" name="quantity" type="number" value="<%= item.quantity %>">
+    </div>
+    <div class="field">
+      <label for="image_url">Image URL</label>
+      <input id="image_url" name="image_url" type="text" value="<%= item.image_url %>">
+    </div>
+    <div class="field">
+      <label for="category_id">Category</label>
+      <select id="category_id" name="category_id">
+        <% categories.forEach((category) => { %>
+          <option
+            value="<%= category.id %>"
+            <%= category.id === item.category_id ? "selected" : "" %>
+          ><%= category.name %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-accent" type="submit">Save</button>
+      <a class="btn" href="/">Cancel</a>
+    </div>
+  </form>
+</div>
+</body>
 </html>

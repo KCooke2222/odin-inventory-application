@@ -1,34 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Inventory</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
 <body>
-  <h1>Fruits</h1>
+<div class="page">
+  <header>
+    <h1>Inventory</h1>
+    <div class="header-actions">
+      <a class="btn btn-accent" href="/categories/new">+ Category</a>
+      <a class="btn" href="/items/new">+ Item</a>
+    </div>
+  </header>
+
   <% if (query.error) { %>
-    <p><%= query.error %></p>
+    <div class="alert"><%= query.error %></div>
   <% } %>
 
   <% categories.forEach((category) => { %>
-  <h2><%= category.name %></h2>
-  <form action="/categories/<%= category.id %>/delete" method="POST">
-    <button type="submit">Delete</button>
-  </form>
-  <a href="/categories/<%= category.id %>/edit">Edit</a>
-
-  <% const categoryItems = items.filter((item) => item.category_id === category.id); %>
-
-  <% categoryItems.forEach((item) => { %>
-    <div>
-      <h3><%= item.name %></h3>
-      <p>Quantity: <%= item.quantity %></p>
-      <img src="<%= item.image_url %>" alt="<%= item.name %>">
-
-      <a href="/items/<%= item.id %>/edit">Edit</a>
-
-      <form action="/items/<%= item.id %>/delete" method="POST">
-        <button type="submit">Delete</button>
+  <section class="category">
+    <div class="category-header">
+      <h2><%= category.name %></h2>
+      <a class="btn btn-sm" href="/categories/<%= category.id %>/edit">Edit</a>
+      <form action="/categories/<%= category.id %>/delete" method="POST" style="display:inline">
+        <button class="btn btn-sm btn-danger" type="submit">Delete</button>
       </form>
     </div>
+
+    <% const categoryItems = items.filter((item) => item.category_id === category.id); %>
+    <div class="items-grid">
+      <% categoryItems.forEach((item) => { %>
+      <div class="item-card">
+        <img src="<%= item.image_url %>" alt="<%= item.name %>">
+        <div class="item-card-body">
+          <h3><%= item.name %></h3>
+          <p class="qty">qty: <%= item.quantity %></p>
+          <div class="item-actions">
+            <a class="btn btn-sm" href="/items/<%= item.id %>/edit">Edit</a>
+            <form action="/items/<%= item.id %>/delete" method="POST" style="display:inline">
+              <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </section>
   <% }) %>
-<% }) %>
-
-  <a href="/items/new">Create Item</a>
-  <a href="/categories/new">Create Category</a>
-
+</div>
 </body>
+</html>

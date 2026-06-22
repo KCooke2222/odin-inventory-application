@@ -1,26 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>New Item</title>
-  </head>
-  <body>
-    <h1>Add a Item</h1>
-    <form action="new" method="POST">
-      <input name="name" type="text">
-
-      <input name="quantity" type="number">
-
-      <input name="image_url" type="text">
-
-      <select name="category_id">
+<head>
+  <meta charset="UTF-8" />
+  <title>New Item</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="form-page">
+  <h1>New Item</h1>
+  <form action="new" method="POST">
+    <div class="field">
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text">
+    </div>
+    <div class="field">
+      <label for="quantity">Quantity</label>
+      <input id="quantity" name="quantity" type="number">
+    </div>
+    <div class="field">
+      <label for="image_url">Image URL</label>
+      <input id="image_url" name="image_url" type="text">
+    </div>
+    <div class="field">
+      <label for="category_id">Category</label>
+      <select id="category_id" name="category_id">
         <% categories.forEach((category) => { %>
-          <option value="<%= category.id %>">
-            <%= category.name %>
-          </option>
+          <option value="<%= category.id %>"><%= category.name %></option>
         <% }) %>
       </select>
-      <button type="submit">Submit</button>
-    </form>
-  </body>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-accent" type="submit">Create</button>
+      <a class="btn" href="/">Cancel</a>
+    </div>
+  </form>
+</div>
+</body>
 </html>
